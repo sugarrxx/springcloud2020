@@ -3,12 +3,9 @@ package com.practice.springcloud.controller;
 import com.practice.springcloud.entities.CommonResult;
 import com.practice.springcloud.entities.Payment;
 import com.practice.springcloud.service.PaymentService;
-import java.util.List;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +22,6 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
-
-    @Resource
-    private DiscoveryClient discoveryClient;
 
     @Resource
     private PaymentService paymentService;
@@ -52,23 +46,5 @@ public class PaymentController {
         } else {
             return new CommonResult(444, "没有对应记录, 查询ID：" + id, null);
         }
-    }
-
-    @GetMapping("/payment/discovery")
-    public Object discovery() {
-
-        List<String> services = discoveryClient.getServices();
-        for (String service : services) {
-            log.info("*****service: " + service);
-        }
-
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance instance : instances) {
-            log.info(
-                    instance.getInstanceId() + "\t" + instance.getHost() + "\t" + instance.getPort()
-                            + "\t" + instance.getUri());
-        }
-
-        return this.discoveryClient;
     }
 }
