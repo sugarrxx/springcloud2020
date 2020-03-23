@@ -1,9 +1,11 @@
 package com.practice.springcloud.controller;
 
+import ch.qos.logback.core.util.TimeUtil;
 import com.practice.springcloud.entities.CommonResult;
 import com.practice.springcloud.entities.Payment;
 import com.practice.springcloud.service.PaymentService;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,6 +75,16 @@ public class PaymentController {
 
     @GetMapping("/payment/lb")
     public String getPaymentLB() {
+        return serverPort;
+    }
+
+    @GetMapping("/payment/feign/timeout")
+    public String paymentFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return serverPort;
     }
 }
