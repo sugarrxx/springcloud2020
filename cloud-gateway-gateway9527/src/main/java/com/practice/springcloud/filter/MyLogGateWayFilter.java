@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
  * @author lixiaoxiang
  * @date 2020-03-25
  */
-@Component
+//@Component
 @Slf4j
 public class MyLogGateWayFilter implements GlobalFilter, Ordered {
 

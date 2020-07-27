@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: nacosdev.kktv2.com
+        server-addr: nacosdev.kktv2.com
+      config:
+#        server-addr: nacosdev.kktv2.com
+        server-addr: nacosdev.kktv2.com:80
+        namespace: 1bb18ee3-6f39-4d8f-8686-5e5d29f1960d
+        ext-config:
+          - data-id: config_info.yml
+            group: DEFAULT_GROUP
+            refresh: true
